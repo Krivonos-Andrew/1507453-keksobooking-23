@@ -18,10 +18,6 @@ const getRandomInRange = (min, max) => {
   return Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;
 };
 
-getRandomFloat();
-getRandomInRange();
-
-
 const TYPES = [
   'palace',
   'flat',
@@ -69,7 +65,7 @@ const getOffer = () => ({
   },
   offer: {
     title: 'Мое объявление',
-    address: '{location.lat}, {location.lng}',
+    address: `${[location.lat]}, ${[location.lng]}`,
     price: getRandomInRange(100, 1000),
     type: getRandomItem(TYPES),
     rooms: getRandomInRange(1, 10),
@@ -84,13 +80,13 @@ const getOffer = () => ({
     lat: getRandomFloat(35.65000, 35.70000),
     lng: getRandomFloat(139.70000, 139.80000),
   },
+
 });
+
 
 const getOffers = () => {
   const offers = [];
-
-  // eslint-disable-next-line id-length
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i <= 10; i++) {
     offers.push(getOffer());
   }
   return offers;
