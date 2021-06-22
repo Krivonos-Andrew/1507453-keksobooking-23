@@ -59,29 +59,32 @@ const getRandomItems = (items) => {
   return result;
 };
 
-const getOffer = () => ({
-  autor: {
-    avatar: `img/avatars/user0${getRandomInRange(1, 10)}.png`,
-  },
-  offer: {
-    title: 'Мое объявление',
-    address: `${[location.lat]}, ${[location.lng]}`,
-    price: getRandomInRange(100, 1000),
-    type: getRandomItem(TYPES),
-    rooms: getRandomInRange(1, 10),
-    guests: getRandomInRange(0, 10),
-    checkIn: getRandomItem(CHECKINS),
-    checkOut: getRandomItem(CHECKOUTS),
-    features: getRandomItems(FEATURES),
-    description: 'Описание помещения',
-    photos: getRandomItems(FOTOS),
-  },
-  location: {
-    lat: getRandomFloat(35.65000, 35.70000),
-    lng: getRandomFloat(139.70000, 139.80000),
-  },
-
-});
+const getOffer = () => {
+  const latValue = getRandomFloat(35.65000, 35.70000, 5);
+  const lngValue = getRandomFloat(139.70000, 139.80000, 5);
+  return {
+    autor: {
+      avatar: `img/avatars/user0${getRandomInRange(1, 10)}.png`,
+    },
+    offer: {
+      title: 'Мое объявление',
+      address: `${latValue}, ${lngValue}`,
+      price: getRandomInRange(100, 1000),
+      type: getRandomItem(TYPES),
+      rooms: getRandomInRange(1, 10),
+      guests: getRandomInRange(0, 10),
+      checkIn: getRandomItem(CHECKINS),
+      checkOut: getRandomItem(CHECKOUTS),
+      features: getRandomItems(FEATURES),
+      description: 'Описание помещения',
+      photos: getRandomItems(FOTOS),
+    },
+    location: {
+      lat: latValue,
+      lng: lngValue,
+    },
+  };
+};
 
 
 const getOffers = () => {
