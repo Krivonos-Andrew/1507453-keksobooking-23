@@ -59,12 +59,16 @@ const getRandomItems = (items) => {
   return result;
 };
 
-const getOffer = () => {
+const getOffer = (numAvatar) => {
   const latValue = getRandomFloat(35.65000, 35.70000, 5);
   const lngValue = getRandomFloat(139.70000, 139.80000, 5);
+  let num = `0${  numAvatar}`;
+  if (numAvatar >= 10) {
+    num = `${  numAvatar}`;
+  }
   return {
     autor: {
-      avatar: `img/avatars/user0${getRandomInRange(1, 10)}.png`,
+      avatar: `img/avatars/user${num}.png`,
     },
     offer: {
       title: 'Мое объявление',
@@ -89,8 +93,8 @@ const getOffer = () => {
 
 const getOffers = () => {
   const offers = [];
-  for (let i = 0; i <= 10; i++) {
-    offers.push(getOffer());
+  for (let i = 1; i <= 10; i++) {
+    offers.push(getOffer(i));
   }
   return offers;
 };
