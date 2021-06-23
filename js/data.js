@@ -3,7 +3,7 @@ import {
   getRandomInRange,
   getRandomItem,
   getRandomItems
-} from './utils';
+} from './utils.js';
 
 
 const TYPES = [
