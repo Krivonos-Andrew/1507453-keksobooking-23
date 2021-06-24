@@ -1,2 +1,7 @@
 import getOffers from './data.js';
-getOffers();
+import {
+  showCard
+} from './card.js';
+//showCard();
+const offers = getOffers();
+showCard(offers[0]);

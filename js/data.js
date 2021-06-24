@@ -36,9 +36,9 @@ const FOTOS = [
 const getOffer = (numAvatar) => {
   const latValue = getRandomFloat(35.65000, 35.70000, 5);
   const lngValue = getRandomFloat(139.70000, 139.80000, 5);
-  let num = `0${  numAvatar}`;
+  let num = `0${numAvatar}`;
   if (numAvatar >= 10) {
-    num = `${  numAvatar}`;
+    num = `${numAvatar}`;
   }
   return {
     autor: {
@@ -64,7 +64,6 @@ const getOffer = (numAvatar) => {
   };
 };
 
-
 const getOffers = () => {
   const offers = [];
   for (let i = 1; i <= 10; i++) {
@@ -73,6 +72,4 @@ const getOffers = () => {
   return offers;
 };
 
-export {
-  getOffers
-};
+export default getOffers;
