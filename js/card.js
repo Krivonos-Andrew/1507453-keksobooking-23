@@ -84,7 +84,7 @@ const getCard = (offer, autor) => {
 
   const cardAddress = cardElement.querySelector('.popup__text--address');
   if (address) {
-    cardAddress.textContent = Object.values(address);
+    cardAddress.textContent = address;
   } else {
     cardAddress.remove();
   }
@@ -159,4 +159,6 @@ const showCard = (offerCard) => {
 
 };
 
-export default showCard;
+export {
+  showCard
+};

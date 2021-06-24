@@ -64,7 +64,6 @@ const getOffer = (numAvatar) => {
   };
 };
 
-
 const getOffers = () => {
   const offers = [];
   for (let i = 1; i <= 10; i++) {
@@ -73,7 +72,4 @@ const getOffers = () => {
   return offers;
 };
 
-export default {
-  getOffer,
-  getOffers,
-};
+export default getOffers;
