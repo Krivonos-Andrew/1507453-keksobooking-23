@@ -5,3 +5,7 @@ import {
 //showCard();
 const offers = getOffers();
 showCard(offers[0]);
+import {
+  createForm
+} from './form.js';
+createForm();
