@@ -92,7 +92,7 @@
           <input id="title" name="title" type="text" placeholder="Милая, уютная квартирка в центре Токио" required minlength="30" maxlength="100">
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
-          <label class="ad-form__label" for="address">Адрес (координаты)</label>
+          <label class="ad-form__label" for="address" readonly required>Адрес (координаты)</label>
           <input id="address" name="address" type="text">
         </fieldset>
         <fieldset class="ad-form__element">
@@ -107,7 +107,7 @@
         </fieldset>
         <fieldset class="ad-form__element">
           <label class="ad-form__label" for="price">Цена за ночь, руб.</label>
-          <input id="price" name="price" type="number" placeholder="5000" required min="0" value="1000" max="1000000">
+          <input id="price" name="price" type="number" placeholder="5000" required min="0" max="1000000">
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--time">
           <label class="ad-form__label" for="timein">Время заезда и выезда</label>
