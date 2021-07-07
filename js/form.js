@@ -32,6 +32,15 @@ const removeDisabledFildset = () => {
   formFieldset.forEach((it) => it.disabled = false);
 };
 
+const initForm = () => {
+  priceInput.min = 1000;
+  priceInput.placeholder = +priceInput.min;
+  roomCapacity.value = 1;
+  roomCapacity[0].disabled = true;
+  roomCapacity[1].disabled = true;
+  roomCapacity[3].disabled = true;
+};
+initForm();
 
 const titleInvalidHandler = () => {
   if (title.validity.tooShort) {
@@ -99,9 +108,10 @@ accomondationType.addEventListener('change', priceInputHandler);
 // Деактивация селектов
 
 const disableRoomSelect = () => {
-  roomCapacity.forEach((it) => it.disabled = true);
+  for (let i = 0; i < roomCapacity.length; i++) {
+    roomCapacity[i].disabled = true;
+  }
 };
-
 // Сравнение количества комнат и людей
 
 const roomNumberChangeHandler = (evt) => {
@@ -110,9 +120,11 @@ const roomNumberChangeHandler = (evt) => {
   for (let i = 0; i < roomCapacity.length; i++) {
     if (roomCapacity[i].value === choosenValue) {
       roomCapacity[i].disabled = false;
+      roomCapacity.value = roomCapacity[i].value;
     }
     if (roomCapacity[i].value <= choosenValue && roomCapacity[i].value > 0) {
       roomCapacity[i].disabled = false;
+      roomCapacity.value = roomCapacity[i].value;
     }
   }
 };
