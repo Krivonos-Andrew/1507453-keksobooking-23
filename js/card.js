@@ -2,7 +2,7 @@ const cardListElementTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
-const mapCanvas = document.querySelector('#map-canvas');
+// const mapCanvas = document.querySelector('#map-canvas');
 
 const getType = (type) => {
   let resultType = '';
@@ -53,7 +53,7 @@ const getPhotos = (items) => {
   return fragmentPhotos;
 };
 
-const getCard = (offer, autor) => {
+const getCard = (offer) => {
   const {
     title,
     address,
@@ -66,14 +66,11 @@ const getCard = (offer, autor) => {
     features,
     description,
     photos,
-  } = offer;
+  } = offer.offer;
 
-  const {
-    avatar,
-  } = autor;
+  const avatar = offer.autor.avatar;
 
   const cardElement = cardListElementTemplate.cloneNode(true);
-
 
   const cardTitle = cardElement.querySelector('.popup__title');
   if (title) {
@@ -108,7 +105,7 @@ const getCard = (offer, autor) => {
 
   const cardCapacity = cardElement.querySelector('.popup__text--capacity');
   if (rooms, guests) {
-    cardCapacity.textContent = `${offer.rooms} комнат(ы) для ${offer.guests} гостей`;
+    cardCapacity.textContent = `${rooms} комнат(ы) для ${guests} гостей`;
   } else {
     cardCapacity.remove();
   }
@@ -153,12 +150,12 @@ const getCard = (offer, autor) => {
   return cardElement;
 };
 
-const showCard = (offerCard) => {
-  const cardElement = getCard(offerCard.offer, offerCard.autor, offerCard.location);
-  mapCanvas.appendChild(cardElement);
+// const showCard = (offerCard) => {
+//   const cardElement = getCard(offerCard.offer, offerCard.autor, offerCard.location);
+//   mapCanvas.appendChild(cardElement);
 
-};
+// };
 
 export {
-  showCard
+  getCard
 };
