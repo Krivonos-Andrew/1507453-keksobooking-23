@@ -1,5 +1,5 @@
 import {
-  showCard
+  getCard
 } from './card.js';
 import getOffers from './data.js';
 const offers = getOffers();
@@ -34,7 +34,7 @@ const putMarkerOnMap = ((offer) => {
   }, {
     iconOffer,
   });
-  markerOffer.addTo(offersGroup).bindPopup(showCard(offer), {
+  markerOffer.addTo(offersGroup).bindPopup(getCard(offer), {
     keepInView: true,
   });
 });
@@ -80,12 +80,14 @@ const addressForm = document.querySelector('#address');
 mainPinMarker.on('moveend', (evt) => {
   addressForm.value = `${
     evt.target.getLatLng().lat.toFixed(5)
-  }, $ {
+  }, ${
     evt.target.getLatLng().lng.toFixed(5)
   }`;
 });
 
-putMarkerOnMap(offers[0]);
+offers.forEach((offer) => {
+  putMarkerOnMap(offer);
+});
 
 export {
   map,
