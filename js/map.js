@@ -1,6 +1,8 @@
 import {
   showCard
 } from './card.js';
+import getOffers from './data.js';
+const offers = getOffers();
 
 const map = L.map('map-canvas')
   .on('load', () => {
@@ -73,11 +75,17 @@ const mainPinMarker = L.marker({
 });
 mainPinMarker.addTo(map);
 
+const addressForm = document.querySelector('#address');
+
 mainPinMarker.on('moveend', (evt) => {
-  // eslint-disable-next-line no-console
-  console.log(evt.target.getLatLng());
+  addressForm.value = `${
+    evt.target.getLatLng().lat.toFixed(5)
+  }, $ {
+    evt.target.getLatLng().lng.toFixed(5)
+  }`;
 });
 
+putMarkerOnMap(offers[0]);
 
 export {
   map,
