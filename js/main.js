@@ -1,13 +1,22 @@
-import getOffers from './data.js';
-import {
-  showCard
-} from './card.js';
+// import getOffers from './data.js';
+// import {
+//   showCard
+// } from './card.js';
 import {
   removeDisabledFildset,
   setAddress
 } from './form.js';
-//showCard();
-const offers = getOffers();
-showCard(offers[0]);
+// showCard();
+// const offers = getOffers();
+// showCard(offers[0]);
 removeDisabledFildset();
 setAddress(20, 30);
+
+import {
+  map,
+  mainPinIcon,
+  mainPinMarker,
+} from './map.js';
+map();
+mainPinIcon();
+mainPinMarker();
