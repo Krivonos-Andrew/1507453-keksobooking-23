@@ -150,12 +150,6 @@ const getCard = (offer) => {
   return cardElement;
 };
 
-// const showCard = (offerCard) => {
-//   const cardElement = getCard(offerCard.offer, offerCard.autor, offerCard.location);
-//   mapCanvas.appendChild(cardElement);
-
-// };
-
 export {
   getCard
 };

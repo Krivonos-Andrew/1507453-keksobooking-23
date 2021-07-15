@@ -12,3 +12,11 @@ import {
   mainPinMarker,
   putMarkerOnMap
 } from './map.js';
+
+import {
+  getData,
+  sendForm
+} from './backend.js';
+
+getData();
+sendForm();
