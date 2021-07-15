@@ -1,6 +1,18 @@
 const SERVER_URL = 'https://23.javascript.pages.academy/keksobooking';
 const TIMEOUT_TIME = 10000;
 
+const getSucess = () => {
+  const elem = document.querySelector('#success');
+  const elemSuccess = elem.cloneNode(true);
+  return elemSuccess;
+};
+
+const getError = () => {
+  const elem = document.querySelector('#success');
+  const elemError = elem.cloneNode(true);
+  return elemError;
+};
+
 const getData = async (url) => {
 
   const response = await fetch(SERVER_URL);
@@ -41,14 +53,16 @@ const sendForm = () => {
 
   sendData(SERVER_URL, formData)
     .then(() => {
+      getSucess();
       cartForm.reset();
     })
-    .then('error', (timeout) => {
-      if (timeout === TIMEOUT_TIME) {
-        throw new Error(`Запрос не успел выполниться за ${timeout} мс`);
-      }
-    })
+    // .then('error', (timeout) => {
+    //   if (timeout === TIMEOUT_TIME) {
+    //     throw new Error(`Запрос не успел выполниться за ${timeout} мс`);
+    //   }
+    // })
     .catch(('error', () => {
+      getError();
       throw new Error('Произошла ошибка соединения');
     }));
 };
