@@ -68,7 +68,7 @@ const getCard = (offer) => {
     photos,
   } = offer.offer;
 
-  const avatar = offer.autor.avatar;
+  const avatar = offer.author.avatar;
 
   const cardElement = cardListElementTemplate.cloneNode(true);
 

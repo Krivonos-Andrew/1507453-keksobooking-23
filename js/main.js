@@ -14,9 +14,9 @@ import {
 } from './map.js';
 
 import {
-  getData,
-  sendForm
+  sendForm,
+  getData
 } from './backend.js';
 
-getData();
 sendForm();
+getData();

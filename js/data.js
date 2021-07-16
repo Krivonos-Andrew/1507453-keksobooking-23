@@ -41,7 +41,7 @@ const getOffer = (numAvatar) => {
     num = `${numAvatar}`;
   }
   return {
-    autor: {
+    author: {
       avatar: `img/avatars/user${num}.png`,
     },
     offer: {
