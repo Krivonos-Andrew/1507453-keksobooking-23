@@ -1,13 +1,22 @@
 import {
   getCard
 } from './card.js';
-import getOffers from './data.js';
-const offers = getOffers();
+import {
+  getData
+} from './backend.js';
+
+// import getOffers from './data.js';
+// const offers = getOffers();
+const onSuccess = ((response) => {
+  response.forEach((offer) => {
+    putMarkerOnMap(offer);
+  });
+});
+
 
 const map = L.map('map-canvas')
   .on('load', () => {
-    // eslint-disable-next-line no-console
-    console.log('Карта инициализирована');
+    getData(onSuccess);
   })
   .setView({
     lat: 35.41,
@@ -40,26 +49,6 @@ const putMarkerOnMap = ((offer) => {
 });
 
 
-// putMarkerOnMap.forEach(({
-//   lat,
-//   lng,
-// }) => {
-//   const icon = L.icon({
-//     iconImage: 'src = "img/pin.svg"',
-//     iconSize: [40, 40],
-//     iconAnchor: [20, 40],
-//   });
-
-//   const marker = L.marker({
-//     lat,
-//     lng,
-//   }, {
-//     icon,
-//   });
-
-//   marker.addTo(map).bindPopup(points.title);
-// });
-
 const mainPinIcon = L.icon({
   iconUrl: 'img/main-pin.svg',
   iconSize: [52, 52],
@@ -85,9 +74,9 @@ mainPinMarker.on('moveend', (evt) => {
   }`;
 });
 
-offers.forEach((offer) => {
-  putMarkerOnMap(offer);
-});
+// offers.forEach((offer) => {
+//   putMarkerOnMap(offer);
+// });
 
 export {
   map,

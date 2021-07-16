@@ -23,9 +23,11 @@ const getData = (onSuccess, onError) => {
     .then((response) => {
       if (response.ok) {
         return response.json();
+      } else {
+        throw new Error(`${response.status} ${response.statusText}`);
       }
 
-      throw new Error(`${response.status} ${response.statusText}`);
+
     })
     .then((json) => {
       onSuccess(json);
@@ -71,8 +73,6 @@ const sendForm = (onSuccess) => {
 };
 
 
-
-
 // sendData(SERVER_URL, formData)
 //   .then(() => {
 //     getSucсess();
@@ -82,7 +82,6 @@ const sendForm = (onSuccess) => {
 //     getError();
 //     throw new Error('Произошла ошибка соединения');
 //   }));
-
 
 
 export {
