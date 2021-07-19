@@ -12,7 +12,24 @@ const onSuccess = ((response) => {
   });
 });
 
-const onError = (err) => {};
+const onError = (err) => {
+  const fragment = document.createDocumentFragment();
+  const div = document.createElement('div');
+  const p = document.createElement('p');
+  const p1 = document.createElement('p');
+  div.classList.add('error-message');
+  div.style = 'position: fixed; z-index: 10; width: 200px; height: 80px; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #F4655E; color: #ffffff; text-align: center; border: 2px solid white';
+  p.textContent = 'Что-то пошло не так';
+  p1.textContent = err;
+  div.appendChild(p);
+  div.appendChild(p1);
+  fragment.appendChild(div);
+  window.map.mapSection.appendChild(fragment);
+  setTimeout(() => {
+    document.querySelector('.error-message').style = 'display: none;';
+  }, 3000);
+};
+
 
 const map = L.map('map-canvas')
   .on('load', () => {

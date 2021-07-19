@@ -3,7 +3,7 @@ import {
 } from './form.js';
 addDisabledFildset();
 import './map.js';
-
+import './filters.js';
 // removeDisabledFildset();
 // setAddress(20, 30);
 
