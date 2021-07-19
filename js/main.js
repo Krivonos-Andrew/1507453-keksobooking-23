@@ -1,17 +1,11 @@
 import {
-  removeDisabledFildset,
-  setAddress
+  addDisabledFildset
 } from './form.js';
+addDisabledFildset();
+import './map.js';
 
-removeDisabledFildset();
-setAddress(20, 30);
-
-import {
-  map,
-  mainPinIcon,
-  mainPinMarker,
-  putMarkerOnMap
-} from './map.js';
+// removeDisabledFildset();
+// setAddress(20, 30);
 
 import {
   sendForm,
@@ -19,4 +13,3 @@ import {
 } from './backend.js';
 
 sendForm();
-// getData();

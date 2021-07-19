@@ -5,18 +5,18 @@ import {
   getData
 } from './backend.js';
 
-// import getOffers from './data.js';
-// const offers = getOffers();
+
 const onSuccess = ((response) => {
   response.forEach((offer) => {
     putMarkerOnMap(offer);
   });
 });
 
+const onError = (err) => {};
 
 const map = L.map('map-canvas')
   .on('load', () => {
-    getData(onSuccess);
+    getData(onSuccess, onError);
   })
   .setView({
     lat: 35.41,
@@ -56,8 +56,8 @@ const mainPinIcon = L.icon({
 });
 
 const mainPinMarker = L.marker({
-  lat: 35.41,
-  lng: 139.41,
+  lat: 35.68950,
+  lng: 139.69171,
 }, {
   draggable: true,
   icon: mainPinIcon,
@@ -73,14 +73,3 @@ mainPinMarker.on('moveend', (evt) => {
     evt.target.getLatLng().lng.toFixed(5)
   }`;
 });
-
-// offers.forEach((offer) => {
-//   putMarkerOnMap(offer);
-// });
-
-export {
-  map,
-  mainPinIcon,
-  mainPinMarker,
-  putMarkerOnMap
-};

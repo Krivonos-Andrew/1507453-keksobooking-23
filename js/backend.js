@@ -15,11 +15,7 @@ const getError = () => {
 
 const getData = (onSuccess, onError) => {
 
-  fetch(`${SERVER_URL}/data`, {
-      method: 'GET',
-      credentials: 'same-origin',
-      body: new FormData(),
-    })
+  fetch(`${SERVER_URL}/data`)
     .then((response) => {
       if (response.ok) {
         return response.json();
@@ -37,19 +33,6 @@ const getData = (onSuccess, onError) => {
     });
 };
 
-
-// const sendData = () => {
-//   fetch(SERVER_URL, {
-//     method: 'POST',
-//     body: FormData(),
-//   });
-
-//   if (!response.ok) {
-//     throw new Error(`Ошибка по адресу ${SERVER_URL}, статус ошибки ${response.status}`);
-//   }
-
-//   return response.json();
-// };
 
 const sendForm = (onSuccess) => {
 
@@ -71,18 +54,6 @@ const sendForm = (onSuccess) => {
     evt.cartForm.reset();
   });
 };
-
-
-// sendData(SERVER_URL, formData)
-//   .then(() => {
-//     getSucсess();
-//     cartForm.reset();
-//   })
-//   .catch(('error', () => {
-//     getError();
-//     throw new Error('Произошла ошибка соединения');
-//   }));
-
 
 export {
   getData,

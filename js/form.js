@@ -71,25 +71,11 @@ const priceInputInvalidHandler = () => {
 };
 
 const setAddress = (xCoord, yCoord) => {
-  // eslint-disable-next-line no-useless-concat
-  const addressString = `x: ${  xCoord  }, ` + `y: ${  yCoord}`;
+  const addressString = `x: ${  xCoord  },  + y: ${  yCoord}`;
 
   addressInput.setAttribute('value', addressString);
 };
-//const priceInputHandler = () => {
-//    if (accomondationType.value === 'bungalow') {
-//       priceInput.min = 0;
-//       priceInput.placeholder = "0";
-//    }
-//    if (accomondationType.value === 'flat') {
-//       priceInput.min = 1000;
-//       priceInput.placeholder = "1000";
-//    }
-//     if (accomondationType.value === 'hotel') {
-//       priceInput.min = 3000;
-//       priceInput.placeholder = "3000";
-//    }
-//}
+
 const housePrice = {
   flat: 1000,
   hotel: 3000,
@@ -103,7 +89,7 @@ const priceInputHandler = () => {
 };
 
 accomondationType.addEventListener('change', priceInputHandler);
-//priceInput.addEventListener('invalid', priceInputInvalidHandler);
+priceInput.addEventListener('invalid', priceInputInvalidHandler);
 
 // Деактивация селектов
 
@@ -133,6 +119,7 @@ roomNumber.addEventListener('change', roomNumberChangeHandler);
 
 
 export {
+  addDisabledFildset,
   removeDisabledFildset,
   noticeForm,
   setAddress

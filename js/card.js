@@ -2,8 +2,6 @@ const cardListElementTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
-// const mapCanvas = document.querySelector('#map-canvas');
-
 const getType = (type) => {
   let resultType = '';
   switch (type) {
