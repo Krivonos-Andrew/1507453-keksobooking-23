@@ -1,3 +1,7 @@
+// import {
+//   putMarkerOnMap
+// } from "./map.js";
+
 const filters = {
   type: 'any',
   price: 'any',
@@ -15,6 +19,8 @@ const priceParams = {
   LOW: 10000,
   HIGH: 50000,
 };
+
+mapFilters.addClassList('ad-form--disabled');
 
 const filteredByPrice = (data) => {
   switch (housingPrice.value) {
@@ -51,19 +57,19 @@ const getFilteredData = (data) => {
 
 
 const filtersChangeHandlers = () => {
-  const card = document.querySelector('.map__card');
-  if (map.mapSection.contains(card)) {
+  const card = document.querySelector('.popup');
+  if (mapBlock.contains(card)) {
     card.classList.add('hidden');
   }
 
-  for (let j = 0; j < window.mapPin.length; j++) {
-    if (!mapPin[j].classList.contains('map__pin--main')) {
-      window.mapPins.removeChild(mapPin[j]);
-    }
-  }
+  // for (let j = 0; j < mapPin.length; j++) {
+  //   if (!putMarkerOnMap[j].classList.contains('map__pin--main')) {
+  //     window.mapPins.removeChild(mapPin[j]);
+  //   }
+  // }
 
-  const filterDataObject = getFilteredData(offersObject);
-  debounce(pin.getPinsFragment(filterDataObject));
+  // const filterDataObject = getFilteredData(offersObject);
+  // debounce(pin.getPinsFragment(filterDataObject));
 };
 
 const housingTypeChangeHandler = (evt) => {

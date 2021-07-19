@@ -1,6 +1,6 @@
 const noticeForm = document.querySelector('.ad-form');
 const formFieldset = noticeForm.querySelectorAll('fieldset');
-const fileChooserAvatar = noticeForm.querySelector('#avatar');
+// const fileChooserAvatar = noticeForm.querySelector('#avatar');
 const noticePreview = noticeForm.querySelector('.notice__preview img');
 const title = noticeForm.querySelector('#title');
 const addressInput = noticeForm.querySelector('#address');
@@ -8,23 +8,20 @@ const timeIn = noticeForm.querySelector('#timein');
 const timeOut = noticeForm.querySelector('#timeout');
 const accomondationType = noticeForm.querySelector('#type');
 const priceInput = noticeForm.querySelector('#price');
-const accomondationTypes = ['bungalo', 'flat', 'house', 'palace'];
-const accomondationPrices = [0, 1000, 5000, 10000];
+// const accomondationTypes = ['bungalo', 'flat', 'house', 'palace'];
+// const accomondationPrices = [0, 1000, 5000, 10000];
 const roomNumber = noticeForm.querySelector('#room_number');
 const roomCapacity = noticeForm.querySelector('#capacity');
 const descriptionField = noticeForm.querySelector('#description');
 const featuresFields = noticeForm.querySelectorAll('.features input[type=checkbox]');
-const fileChooserPhotos = noticeForm.querySelector('#images');
-const photosContainer = noticeForm.querySelector('.form__photo-container');
+// const fileChooserPhotos = noticeForm.querySelector('#images');
+// const photosContainer = noticeForm.querySelector('.form__photo-container');
 
 //disabled полей
 
 const addDisabledFildset = () => {
   formFieldset.forEach((it) => it.disabled = true);
 };
-
-addDisabledFildset();
-
 //enabled полей
 
 const removeDisabledFildset = () => {
@@ -41,6 +38,14 @@ const initForm = () => {
   roomCapacity[3].disabled = true;
 };
 initForm();
+
+//  аватар
+
+const avatarClickHandler = (result) => {
+  noticePreview.src = result;
+};
+
+
 
 const titleInvalidHandler = () => {
   if (title.validity.tooShort) {
@@ -91,6 +96,12 @@ const priceInputHandler = () => {
 accomondationType.addEventListener('change', priceInputHandler);
 priceInput.addEventListener('invalid', priceInputInvalidHandler);
 
+document.querySelector('.ad-form__element--time').onchange = (evt) => {
+  timeIn.value = evt.target.value;
+  timeOut.value = evt.target.value;
+};
+priceInput.addEventListener('invalid', priceInputInvalidHandler);
+
 // Деактивация селектов
 
 const disableRoomSelect = () => {
@@ -121,6 +132,15 @@ roomNumber.addEventListener('change', roomNumberChangeHandler);
 export {
   addDisabledFildset,
   removeDisabledFildset,
-  noticeForm,
-  setAddress
+  initForm,
+  setAddress,
+  featuresFields,
+  roomCapacity,
+  roomNumber,
+  timeIn,
+  timeOut,
+  priceInput,
+  descriptionField,
+  accomondationType,
+  title
 };
