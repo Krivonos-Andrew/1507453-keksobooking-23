@@ -1,6 +1,6 @@
 import {
   SERVER_URL
-} from './form-message';
+} from './form-message.js';
 
 const getData = (onSuccess, onError) => {
 
