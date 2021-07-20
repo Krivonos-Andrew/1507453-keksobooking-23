@@ -1,16 +1,15 @@
 import {
-  initForm,
-  featuresFields,
-  roomCapacity,
-  roomNumber,
-  timeIn,
-  timeOut,
-  priceInput,
-  descriptionField,
-  accomondationType,
-  title
+  initForm
+
 } from './form.js';
 
+import {
+  mapFilters
+} from './filters.js';
+
+import {
+  mainPinMarker
+} from './map.js';
 
 const SERVER_URL = 'https://23.javascript.pages.academy/keksobooking';
 const cartForm = document.querySelector('.ad-form');
@@ -74,11 +73,10 @@ const getData = (onSuccess, onError) => {
       } else {
         throw new Error(`${response.status} ${response.statusText}`);
       }
-
-
     })
     .then((json) => {
       onSuccess(json);
+      mapFilters.classList.remove('ad-form--disabled');
     })
     .catch((err) => {
       onError(err);
@@ -87,10 +85,13 @@ const getData = (onSuccess, onError) => {
 
 const sendForm = (onSuccess, onError) => {
 
-
   cartForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-
+    initForm();
+    mainPinMarker.setLatLng({
+      lat: 35.68334,
+      lng: 139.78199,
+    });
     const formData = new FormData(cartForm);
     fetch(SERVER_URL, {
         method: 'POST',
@@ -102,27 +103,19 @@ const sendForm = (onSuccess, onError) => {
       //если что-то случилось ссетью
       .catch(() => onError());
   });
-
-  const syncValues = (element, value) => {
-    element.value = value;
-  };
-
-  cartForm.querySelector('.ad-form__reset').addEventListener('click', () => {
-    cartForm.reset();
-    initForm();
-    syncValues(title, '');
-    syncValues(accomondationType, 'flat');
-    syncValues(priceInput, '1000');
-    syncValues(timeIn, '12:00');
-    syncValues(timeOut, '12:00');
-    roomNumber.selectedIndex = 0;
-    roomCapacity.selectedIndex = 2;
-    featuresFields.forEach((elem) => {
-      elem.checked = false;
-    });
-    syncValues(descriptionField, '');
-  });
 };
+
+
+cartForm.querySelector('.ad-form__reset').addEventListener('click', () => {
+  cartForm.reset();
+  initForm();
+  mainPinMarker.setLatLng({
+    lat: 35.68334,
+    lng: 139.78199,
+  });
+});
+
+
 sendForm(onSucсessSend, onErrorSend);
 export {
   getData,

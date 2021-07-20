@@ -20,7 +20,7 @@ const priceParams = {
   HIGH: 50000,
 };
 
-mapFilters.addClassList('ad-form--disabled');
+mapFilters.classList.add('ad-form--disabled');
 
 const filteredByPrice = (data) => {
   switch (housingPrice.value) {
@@ -118,3 +118,7 @@ housingType.addEventListener('change', housingTypeChangeHandler);
 housingPrice.addEventListener('change', housingPriceChangeHandler);
 housingRooms.addEventListener('change', housingRoomsChangeHandler);
 housingGuests.addEventListener('change', housingGuestsChangeHandler);
+
+export {
+  mapFilters
+};

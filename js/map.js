@@ -9,7 +9,10 @@ import {
   removeDisabledFildset
 } from './form.js';
 
+
 addDisabledFildset();
+
+const addressForm = document.querySelector('#address');
 
 
 const onSuccess = ((response) => {
@@ -81,15 +84,14 @@ const mainPinIcon = L.icon({
 });
 
 const mainPinMarker = L.marker({
-  lat: 35.68950,
-  lng: 139.69171,
+  lat: 35.68334,
+  lng: 139.78199,
 }, {
   draggable: true,
   icon: mainPinIcon,
 });
 mainPinMarker.addTo(map);
 
-const addressForm = document.querySelector('#address');
 
 mainPinMarker.on('moveend', (evt) => {
   addressForm.value = `${
@@ -101,5 +103,7 @@ mainPinMarker.on('moveend', (evt) => {
 
 export {
   putMarkerOnMap,
-  mainPinMarker
+  mainPinMarker,
+  addressForm,
+  map
 };

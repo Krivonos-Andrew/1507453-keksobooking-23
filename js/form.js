@@ -1,21 +1,16 @@
 const noticeForm = document.querySelector('.ad-form');
 const formFieldset = noticeForm.querySelectorAll('fieldset');
-// const fileChooserAvatar = noticeForm.querySelector('#avatar');
-const noticePreview = noticeForm.querySelector('.notice__preview img');
 const title = noticeForm.querySelector('#title');
 const addressInput = noticeForm.querySelector('#address');
 const timeIn = noticeForm.querySelector('#timein');
 const timeOut = noticeForm.querySelector('#timeout');
 const accomondationType = noticeForm.querySelector('#type');
 const priceInput = noticeForm.querySelector('#price');
-// const accomondationTypes = ['bungalo', 'flat', 'house', 'palace'];
-// const accomondationPrices = [0, 1000, 5000, 10000];
 const roomNumber = noticeForm.querySelector('#room_number');
 const roomCapacity = noticeForm.querySelector('#capacity');
 const descriptionField = noticeForm.querySelector('#description');
 const featuresFields = noticeForm.querySelectorAll('.features input[type=checkbox]');
-// const fileChooserPhotos = noticeForm.querySelector('#images');
-// const photosContainer = noticeForm.querySelector('.form__photo-container');
+
 
 //disabled полей
 
@@ -36,15 +31,9 @@ const initForm = () => {
   roomCapacity[0].disabled = true;
   roomCapacity[1].disabled = true;
   roomCapacity[3].disabled = true;
+  addressInput.setAttribute('value', '35.68334, 139.78199');
 };
 initForm();
-
-//  аватар
-
-const avatarClickHandler = (result) => {
-  noticePreview.src = result;
-};
-
 
 
 const titleInvalidHandler = () => {
@@ -142,5 +131,7 @@ export {
   priceInput,
   descriptionField,
   accomondationType,
-  title
+  title,
+  addressInput
+
 };
