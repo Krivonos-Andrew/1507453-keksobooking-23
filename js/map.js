@@ -14,8 +14,8 @@ addDisabledFildset();
 
 const addressForm = document.querySelector('#address');
 
-
 const onSuccess = ((response) => {
+  offersGroup.clearLayers();
   response = response.slice(0, 10);
   response.forEach((offer) => {
     putMarkerOnMap(offer);
@@ -101,9 +101,9 @@ mainPinMarker.on('moveend', (evt) => {
   }`;
 });
 
+
 export {
-  putMarkerOnMap,
+  onSuccess,
   mainPinMarker,
-  addressForm,
-  map
+  onError
 };

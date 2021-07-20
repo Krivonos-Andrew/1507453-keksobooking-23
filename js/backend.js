@@ -3,9 +3,6 @@ import {
 
 } from './form.js';
 
-import {
-  mapFilters
-} from './filters.js';
 
 import {
   mainPinMarker

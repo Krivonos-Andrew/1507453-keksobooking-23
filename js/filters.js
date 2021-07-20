@@ -1,124 +1,122 @@
-// import {
-//   putMarkerOnMap
-// } from "./map.js";
+import {
+  getData
+} from './backend.js';
+import {
+  onSuccess,
+  onError
+} from './map.js';
 
-const filters = {
-  type: 'any',
-  price: 'any',
-  rooms: 'any',
-  guests: 'any',
-  features: [],
+const DELAY = 500;
+const MAX_COUNT = 10;
+const ALL_OPTIONS = 'any';
+const PRICE_VALUES = {
+  middle: {
+    min: 10000,
+    max: 50000,
+  },
+  low: {
+    min: 0,
+    max: 10000,
+  },
+  high: {
+    min: 50000,
+    max: Infinity,
+  },
+  any: {
+    min: 0,
+    max: Infinity,
+  },
 };
-const mapFilters = document.querySelector('.map__filters');
-const housingType = mapFilters.querySelector('#housing-type');
-const housingPrice = mapFilters.querySelector('#housing-price');
-const housingRooms = mapFilters.querySelector('#housing-rooms');
-const housingGuests = mapFilters.querySelector('#housing-guests');
-const housingFeatures = Array.from(document.querySelectorAll('#housing-features input'));
-const priceParams = {
-  LOW: 10000,
-  HIGH: 50000,
+const filterContainers = document.querySelectorAll('.map__filters select, .map__filters input');
+const filterFormContainer = document.querySelector('.map__filters');
+
+const filterTypeContainer = document.querySelector('#housing-type');
+const filterPriceContainer = document.querySelector('#housing-price');
+const filterRoomsContainer = document.querySelector('#housing-rooms');
+const filterGuestsContainer = document.querySelector('#housing-guests');
+const filterFeaturesContainers = [...document.querySelectorAll('#housing-features input')];
+let timerId = 0;
+
+const filterTypeCondition = ({
+  offer: {
+    type,
+  },
+}, filterValue) => filterValue === ALL_OPTIONS || type === filterValue;
+const filterPriceCondition = ({
+  offer: {
+    price,
+  },
+}, filterValue, maxValue, minValue) => filterValue === ALL_OPTIONS || (price <= maxValue && price >= minValue);
+const filterRoomsCondition = ({
+  offer: {
+    rooms,
+  },
+}, filterValue) => filterValue === ALL_OPTIONS || rooms === +filterValue;
+const filterGuestsCondition = ({
+  offer: {
+    guests,
+  },
+}, filterValue) => filterValue === ALL_OPTIONS || guests === +filterValue;
+const filterFeaturesCondition = ({
+  offer: {
+    features,
+  },
+}) => {
+  const adFeatures = features || [];
+  const filterFeatures = filterFeaturesContainers
+    .map((filterFeaturesContainer) => (filterFeaturesContainer.checked) ? filterFeaturesContainer.value : '')
+    .filter((feature) => feature !== '');
+
+  return filterFeatures.every((filterFeature) => adFeatures.includes(filterFeature));
 };
 
-mapFilters.classList.add('ad-form--disabled');
+const filterAds = (ads) => {
+  const filterType = filterTypeContainer.value;
+  const filterPrice = filterPriceContainer.value;
+  const filterRooms = filterRoomsContainer.value;
+  const filterGuests = filterGuestsContainer.value;
 
-const filteredByPrice = (data) => {
-  switch (housingPrice.value) {
-    case 'low':
-      return data.offer.price < priceParams.LOW;
-    case 'middle':
-      return data.offer.price >= priceParams.LOW && data.offer.price <= priceParams.HIGH;
-    case 'high':
-      return data.offer.price > priceParams.HIGH;
-  }
-  return false;
-};
+  const maxPrice = PRICE_VALUES[filterPrice].max;
+  const minPrice = PRICE_VALUES[filterPrice].min;
 
-const filteredByFeatures = (data) => {
-  for (let i = 0; i < filters.features.length; i++) {
-    if (data.offer.features.indexOf(filters.features[i]) === -1) {
-      return false;
+  const filteredAds = [];
+
+  for (const ad of ads) {
+    if (filterTypeCondition(ad, filterType) &&
+      filterPriceCondition(ad, filterPrice, maxPrice, minPrice) &&
+      filterRoomsCondition(ad, filterRooms) &&
+      filterGuestsCondition(ad, filterGuests) &&
+      filterFeaturesCondition(ad)) {
+      filteredAds.push(ad);
+
+      if (filteredAds.length >= MAX_COUNT) {
+        break;
+      }
     }
   }
-  return true;
+
+  return filteredAds;
 };
 
-const filterData = (data) => ((housingType.value === 'any') ? true : (data.offer.type === housingType.value)) &&
-  ((housingPrice.value === 'any') ? true : filteredByPrice(data)) &&
-  ((housingRooms.value === 'any') ? true : (data.offer.rooms === parseInt(housingRooms.value, 10))) &&
-  ((housingGuests.value === 'any') ? true : (data.offer.guests === parseInt(housingGuests.value, 10))) &&
-  filteredByFeatures(data);
-
-const getFilteredData = (data) => {
-  const newData = data.filter(filterData);
-
-  return newData.slice(0, data.pinLimits);
+const filterChangeAndResetHandler = () => {
+  clearTimeout(timerId);
+  timerId = setTimeout(() => {
+    getData(
+      (ads) => {
+        onSuccess(filterAds(ads));
+      },
+      () => {
+        onError();
+      });
+  }, DELAY);
 };
 
+filterFormContainer.addEventListener('reset', filterChangeAndResetHandler);
 
-const filtersChangeHandlers = () => {
-  const card = document.querySelector('.popup');
-  if (mapBlock.contains(card)) {
-    card.classList.add('hidden');
-  }
-
-  // for (let j = 0; j < mapPin.length; j++) {
-  //   if (!putMarkerOnMap[j].classList.contains('map__pin--main')) {
-  //     window.mapPins.removeChild(mapPin[j]);
-  //   }
-  // }
-
-  // const filterDataObject = getFilteredData(offersObject);
-  // debounce(pin.getPinsFragment(filterDataObject));
-};
-
-const housingTypeChangeHandler = (evt) => {
-  filters.type = evt.target.value;
-
-  filtersChangeHandlers();
-};
-
-const housingPriceChangeHandler = (evt) => {
-  filters.price = evt.target.value;
-
-  filtersChangeHandlers();
-};
-
-const housingRoomsChangeHandler = (evt) => {
-  filters.rooms = evt.target.value;
-
-  filtersChangeHandlers();
-};
-
-const housingGuestsChangeHandler = (evt) => {
-  filters.rooms = evt.target.value;
-
-  filtersChangeHandlers();
-};
-
-const selectFeatures = () => {
-  const accum = [];
-  housingFeatures.map((item) => {
-    if (item.checked === true) {
-      accum.push(item.value);
-    }
-  });
-  return accum;
-};
-
-housingFeatures.forEach((item) => {
-  item.addEventListener('change', () => {
-    filters.features = selectFeatures();
-    filtersChangeHandlers();
-  });
+filterContainers.forEach((filterContainer) => {
+  filterContainer.addEventListener('change', filterChangeAndResetHandler);
 });
 
-
-housingType.addEventListener('change', housingTypeChangeHandler);
-housingPrice.addEventListener('change', housingPriceChangeHandler);
-housingRooms.addEventListener('change', housingRoomsChangeHandler);
-housingGuests.addEventListener('change', housingGuestsChangeHandler);
-
 export {
-  mapFilters
+  filterAds
 };
