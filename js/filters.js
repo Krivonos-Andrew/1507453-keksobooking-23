@@ -29,7 +29,6 @@ const PRICE_VALUES = {
 };
 const filterContainers = document.querySelectorAll('.map__filters select, .map__filters input');
 const filterFormContainer = document.querySelector('.map__filters');
-
 const filterTypeContainer = document.querySelector('#housing-type');
 const filterPriceContainer = document.querySelector('#housing-price');
 const filterRoomsContainer = document.querySelector('#housing-rooms');
@@ -118,5 +117,6 @@ filterContainers.forEach((filterContainer) => {
 });
 
 export {
+  filterContainers,
   filterAds
 };
