@@ -12,12 +12,10 @@ const descriptionField = noticeForm.querySelector('#description');
 const featuresFields = noticeForm.querySelectorAll('.features input[type=checkbox]');
 
 
-//disabled полей
-
 const addDisabledFildset = () => {
   formFieldset.forEach((it) => it.disabled = true);
 };
-//enabled полей
+
 
 const removeDisabledFildset = () => {
 
@@ -50,7 +48,6 @@ const titleInvalidHandler = () => {
 };
 title.addEventListener('invalid', titleInvalidHandler);
 
-//Валидность заголовка объявления
 
 const priceInputInvalidHandler = () => {
   if (priceInput.validity.rangeUnderflow) {
@@ -91,14 +88,13 @@ document.querySelector('.ad-form__element--time').onchange = (evt) => {
 };
 priceInput.addEventListener('invalid', priceInputInvalidHandler);
 
-// Деактивация селектов
 
 const disableRoomSelect = () => {
   for (let i = 0; i < roomCapacity.length; i++) {
     roomCapacity[i].disabled = true;
   }
 };
-// Сравнение количества комнат и людей
+
 
 const roomNumberChangeHandler = (evt) => {
   disableRoomSelect();
