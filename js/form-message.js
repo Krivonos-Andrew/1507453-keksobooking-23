@@ -91,7 +91,7 @@ cartForm.addEventListener('submit', (evt) => {
     body: formData,
   })
     .then((response) => {
-      response.ok ? onSuccessSend() : onErrorSend();
+      response.ok ? onSucсessSend() : onErrorSend();
     })
     .catch(() => onErrorSend());
 });
