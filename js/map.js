@@ -105,5 +105,18 @@ mainPinMarker.on('moveend', (evt) => {
 export {
   onSuccess,
   mainPinMarker,
-  onError
+  onError,
+  offersGroup,
+  putMarkerOnMap,
+  map
 };
+
+// const getDefault = () => {
+//   filterFormContainer.reset();
+//   initForm();
+//   mainPinMarker.setLatLng({
+//     lat: 35.68334,
+//     lng: 139.78199,
+//   });
+//   putMarkerOnMap;
+// };

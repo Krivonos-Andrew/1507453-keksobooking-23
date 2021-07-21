@@ -116,7 +116,9 @@ filterContainers.forEach((filterContainer) => {
   filterContainer.addEventListener('change', filterChangeAndResetHandler);
 });
 
+
 export {
+  filterFormContainer,
   filterContainers,
   filterAds
 };
