@@ -5,14 +5,39 @@ import {
   getData
 } from './backend.js';
 import {
-  addDisabledFildset,
-  removeDisabledFildset
+  addDisabledFieldset,
+  removeDisabledFieldset
 } from './form.js';
 
+const START_ADDRESS = {
+  lat: 35.68334,
+  lng: 139.78199,
+};
 
-addDisabledFildset();
+const DELAY = 3000;
+
+addDisabledFieldset();
 
 const addressForm = document.querySelector('#address');
+const map = L.map('map-canvas');
+const offersGroup = L.layerGroup().addTo(map);
+
+const putMarkerOnMap = ((offer) => {
+  const iconOffer = L.icon({
+    iconUrl: 'img/pin.svg',
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+  });
+  const markerOffer = L.marker({
+    lat: offer.location.lat,
+    lng: offer.location.lng,
+  }, {
+    iconOffer,
+  });
+  markerOffer.addTo(offersGroup).bindPopup(getCard(offer), {
+    keepInView: true,
+  });
+});
 
 const onSuccess = ((response) => {
   offersGroup.clearLayers();
@@ -37,18 +62,16 @@ const onError = () => {
   document.querySelector('body').append(fragment);
   setTimeout(() => {
     document.querySelector('.error-message').style = 'display: none;';
-  }, 3000);
+  }, DELAY);
 };
 
-
-const map = L.map('map-canvas')
-  .on('load', () => {
-    removeDisabledFildset();
-    getData(onSuccess, onError);
-  })
+map.on('load', () => {
+  removeDisabledFieldset();
+  getData(onSuccess, onError);
+})
   .setView({
-    lat: 35.68950,
-    lng: 139.69171,
+    lat: `${START_ADDRESS.lat}`,
+    lng: `${START_ADDRESS.lng}`,
   }, 10);
 
 L.tileLayer(
@@ -57,26 +80,6 @@ L.tileLayer(
   },
 ).addTo(map);
 
-const offersGroup = L.layerGroup().addTo(map);
-
-const putMarkerOnMap = ((offer) => {
-  const iconOffer = L.icon({
-    iconUrl: 'img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-  });
-  const markerOffer = L.marker({
-    lat: offer.location.lat,
-    lng: offer.location.lng,
-  }, {
-    iconOffer,
-  });
-  markerOffer.addTo(offersGroup).bindPopup(getCard(offer), {
-    keepInView: true,
-  });
-});
-
-
 const mainPinIcon = L.icon({
   iconUrl: 'img/main-pin.svg',
   iconSize: [52, 52],
@@ -84,8 +87,8 @@ const mainPinIcon = L.icon({
 });
 
 const mainPinMarker = L.marker({
-  lat: 35.68334,
-  lng: 139.78199,
+  lat: `${START_ADDRESS.lat}`,
+  lng: `${START_ADDRESS.lng}`,
 }, {
   draggable: true,
   icon: mainPinIcon,
@@ -108,7 +111,8 @@ export {
   onError,
   offersGroup,
   putMarkerOnMap,
-  map
+  map,
+  START_ADDRESS
 };
 
 

@@ -8,16 +8,14 @@ const accomondationType = noticeForm.querySelector('#type');
 const priceInput = noticeForm.querySelector('#price');
 const roomNumber = noticeForm.querySelector('#room_number');
 const roomCapacity = noticeForm.querySelector('#capacity');
-const descriptionField = noticeForm.querySelector('#description');
-const featuresFields = noticeForm.querySelectorAll('.features input[type=checkbox]');
 
 
-const addDisabledFildset = () => {
+const addDisabledFieldset = () => {
   formFieldset.forEach((it) => it.disabled = true);
 };
 
 
-const removeDisabledFildset = () => {
+const removeDisabledFieldset = () => {
 
   formFieldset.forEach((it) => it.disabled = false);
 };
@@ -115,17 +113,15 @@ roomNumber.addEventListener('change', roomNumberChangeHandler);
 
 
 export {
-  addDisabledFildset,
-  removeDisabledFildset,
+  addDisabledFieldset,
+  removeDisabledFieldset,
   initForm,
   setAddress,
-  featuresFields,
   roomCapacity,
   roomNumber,
   timeIn,
   timeOut,
   priceInput,
-  descriptionField,
   accomondationType,
   title,
   addressInput

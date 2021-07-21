@@ -2,6 +2,11 @@ const cardListElementTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
+const AVATAR_SIZE = {
+  width: 45,
+  height: 40,
+};
+
 const getType = (type) => {
   let resultType = '';
   switch (type) {
@@ -43,8 +48,8 @@ const getPhotos = (items) => {
     const newPhotos = document.createElement('img');
     newPhotos.classList.add('popup__photo');
     newPhotos.src = photos;
-    newPhotos.width = '45';
-    newPhotos.height = '40';
+    newPhotos.width = `${AVATAR_SIZE.width}`;
+    newPhotos.height = `${AVATAR_SIZE.height}`;
     newPhotos.alt = 'Фотография жилья';
     fragmentPhotos.appendChild(newPhotos);
   });

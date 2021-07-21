@@ -5,7 +5,8 @@ import {
 import {
   mainPinMarker,
   putMarkerOnMap,
-  map
+  map,
+  START_ADDRESS
 } from './map.js';
 
 import {
@@ -19,8 +20,8 @@ const getDefault = () => {
   filterFormContainer.reset();
   initForm();
   mainPinMarker.setLatLng({
-    lat: 35.68334,
-    lng: 139.78199,
+    lat: `${START_ADDRESS.lat}`,
+    lng: `${START_ADDRESS.lng}`,
   });
   putMarkerOnMap;
   map.closePopup();
@@ -28,8 +29,8 @@ const getDefault = () => {
 
 const getSuccess = () => {
   const elem = document.querySelector('#success').content;
-  const elemSuccess = elem.cloneNode(true);
-  return elemSuccess;
+  return elem.cloneNode(true);
+
 };
 const messageEscKeydownHandler = (evt) => {
   if (evt.key === 'Escape' || evt.key === 'Esc') {
@@ -48,12 +49,12 @@ const showSuccessMessage = () => {
   });
   initForm();
   mainPinMarker.setLatLng({
-    lat: 35.68334,
-    lng: 139.78199,
+    lat: `${START_ADDRESS.lat}`,
+    lng: `${START_ADDRESS.lng}`,
   });
 };
 
-const onSucсessSend = () => {
+const onSuccesSend = () => {
   cartForm.reset();
   getDefault();
   showSuccessMessage();
@@ -62,8 +63,7 @@ const onSucсessSend = () => {
 
 const getError = () => {
   const elem = document.querySelector('#error').content;
-  const elemError = elem.cloneNode(true);
-  return elemError;
+  return elem.cloneNode(true);
 };
 
 const showErrorMessage = () => {
@@ -91,7 +91,7 @@ cartForm.addEventListener('submit', (evt) => {
     body: formData,
   })
     .then((response) => {
-      response.ok ? onSucсessSend() : onErrorSend();
+      response.ok ? onSuccesSend() : onErrorSend();
     })
     .catch(() => onErrorSend());
 });
