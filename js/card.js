@@ -2,8 +2,6 @@ const cardListElementTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
-// const mapCanvas = document.querySelector('#map-canvas');
-
 const getType = (type) => {
   let resultType = '';
   switch (type) {
@@ -68,7 +66,7 @@ const getCard = (offer) => {
     photos,
   } = offer.offer;
 
-  const avatar = offer.autor.avatar;
+  const avatar = offer.author.avatar;
 
   const cardElement = cardListElementTemplate.cloneNode(true);
 
@@ -149,12 +147,6 @@ const getCard = (offer) => {
   }
   return cardElement;
 };
-
-// const showCard = (offerCard) => {
-//   const cardElement = getCard(offerCard.offer, offerCard.autor, offerCard.location);
-//   mapCanvas.appendChild(cardElement);
-
-// };
 
 export {
   getCard

@@ -1,17 +1,54 @@
 import {
   getCard
 } from './card.js';
-import getOffers from './data.js';
-const offers = getOffers();
+import {
+  getData
+} from './backend.js';
+import {
+  addDisabledFildset,
+  removeDisabledFildset
+} from './form.js';
+
+
+addDisabledFildset();
+
+const addressForm = document.querySelector('#address');
+
+const onSuccess = ((response) => {
+  offersGroup.clearLayers();
+  response = response.slice(0, 10);
+  response.forEach((offer) => {
+    putMarkerOnMap(offer);
+  });
+});
+
+const onError = () => {
+  const fragment = document.createDocumentFragment();
+  const div = document.createElement('div');
+  const p = document.createElement('p');
+  const p1 = document.createElement('p');
+  div.classList.add('error-message');
+  div.style = 'position: fixed; z-index: 10; width: 400px; height: 80px; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #F4655E; color: #ffffff; text-align: center; border: 2px solid white';
+  p.textContent = 'Что-то пошло не так';
+  p1.textContent = 'не удалось получить данные';
+  div.appendChild(p);
+  div.appendChild(p1);
+  fragment.appendChild(div);
+  document.querySelector('body').append(fragment);
+  setTimeout(() => {
+    document.querySelector('.error-message').style = 'display: none;';
+  }, 3000);
+};
+
 
 const map = L.map('map-canvas')
   .on('load', () => {
-    // eslint-disable-next-line no-console
-    console.log('Карта инициализирована');
+    removeDisabledFildset();
+    getData(onSuccess, onError);
   })
   .setView({
-    lat: 35.41,
-    lng: 139.41,
+    lat: 35.68950,
+    lng: 139.69171,
   }, 10);
 
 L.tileLayer(
@@ -40,26 +77,6 @@ const putMarkerOnMap = ((offer) => {
 });
 
 
-// putMarkerOnMap.forEach(({
-//   lat,
-//   lng,
-// }) => {
-//   const icon = L.icon({
-//     iconImage: 'src = "img/pin.svg"',
-//     iconSize: [40, 40],
-//     iconAnchor: [20, 40],
-//   });
-
-//   const marker = L.marker({
-//     lat,
-//     lng,
-//   }, {
-//     icon,
-//   });
-
-//   marker.addTo(map).bindPopup(points.title);
-// });
-
 const mainPinIcon = L.icon({
   iconUrl: 'img/main-pin.svg',
   iconSize: [52, 52],
@@ -67,15 +84,14 @@ const mainPinIcon = L.icon({
 });
 
 const mainPinMarker = L.marker({
-  lat: 35.41,
-  lng: 139.41,
+  lat: 35.68334,
+  lng: 139.78199,
 }, {
   draggable: true,
   icon: mainPinIcon,
 });
 mainPinMarker.addTo(map);
 
-const addressForm = document.querySelector('#address');
 
 mainPinMarker.on('moveend', (evt) => {
   addressForm.value = `${
@@ -85,13 +101,22 @@ mainPinMarker.on('moveend', (evt) => {
   }`;
 });
 
-offers.forEach((offer) => {
-  putMarkerOnMap(offer);
-});
 
 export {
-  map,
-  mainPinIcon,
+  onSuccess,
   mainPinMarker,
-  putMarkerOnMap
+  onError,
+  offersGroup,
+  putMarkerOnMap,
+  map
 };
+
+// const getDefault = () => {
+//   filterFormContainer.reset();
+//   initForm();
+//   mainPinMarker.setLatLng({
+//     lat: 35.68334,
+//     lng: 139.78199,
+//   });
+//   putMarkerOnMap;
+// };

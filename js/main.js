@@ -1,14 +1,5 @@
-import {
-  removeDisabledFildset,
-  setAddress
-} from './form.js';
-
-removeDisabledFildset();
-setAddress(20, 30);
-
-import {
-  map,
-  mainPinIcon,
-  mainPinMarker,
-  putMarkerOnMap
-} from './map.js';
+import './map.js';
+import './filters.js';
+import './backend.js';
+import './form-message.js';
+import './avatar.js';
